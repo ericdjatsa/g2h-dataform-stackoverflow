@@ -1,7 +1,7 @@
 {
-    "defaultSchema": "dataform_stackoverflow",
-    "assertionSchema": "dataform_stackoverflow_assertions",
-    "warehouse": "bigquery",
-    "defaultDatabase": "dataform-dogfood-shared",
-    "defaultLocation": "EU"
+  "defaultSchema": "dataform_stackoverflow",
+  "assertionSchema": "dataform_stackoverflow_assertions",
+  "warehouse": "bigquery",
+  "defaultDatabase": "myericanalytics",
+  "defaultLocation": "US"
 }
