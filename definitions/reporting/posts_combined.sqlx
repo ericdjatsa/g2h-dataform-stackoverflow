@@ -43,7 +43,8 @@ select
   parent_id
 from
   ${ref("stg_posts_questions")}
-UNION all
+-- Uncomment the lines below if you would like to generate a uniqueKey assertion error  
+/*UNION all
 SELECT 123 as post_id, 
       TIMESTAMP ("2019-11-19 17:38:33.240000", "UTC") as created_at,
       "question" as type,
@@ -59,3 +60,4 @@ SELECT 123 as post_id,
       "test body" as body,
       12345 as owner_user_id,
       "000002" as parent_id
+*/
