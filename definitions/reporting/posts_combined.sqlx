@@ -1,5 +1,5 @@
 config {
-  type: "table",
+  type: "incremental",
   schema: "reporting",
   tags: ["daily"],
   description: "Combine both questions and answers into a single posts_all table",
@@ -11,9 +11,10 @@ config {
     body: `The content in the body of the post`
   },
 
-  
   bigquery: {
-    partitionBy: "date(created_at)"
+    partitionBy: "date(created_at)",
+    updatePartitionFilter:
+        "created_at >= timestamp_sub(created_at(), interval 24 hour)"
   },
   assertions: {
     uniqueKey: ["post_id"],
@@ -44,7 +45,7 @@ select
 from
   ${ref("stg_posts_questions")}
 -- Uncomment the lines below if you would like to generate a uniqueKey assertion error  
-/*UNION all
+UNION all
 SELECT 123 as post_id, 
       TIMESTAMP ("2019-11-19 17:38:33.240000", "UTC") as created_at,
       "question" as type,
@@ -60,4 +61,4 @@ SELECT 123 as post_id,
       "test body" as body,
       12345 as owner_user_id,
       "000002" as parent_id
-*/
+/*${when(incremental(), `WHERE created_at > (SELECT MAX(created_at) FROM ${self()})`) }*/
