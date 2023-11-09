@@ -1,4 +1,7 @@
-config { type: "table" }
+config { 
+  type: "table",
+  schema: "dataform_stackoverflow_reporting",
+}
 
 select
   stg_users.user_id,
